@@ -1,0 +1,22 @@
+{
+  "name": "ckoins_api",
+  "version": "1.0.0",
+  "description": "Cyberscope Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Cyberscope",
+    "proxy",
+    "CoinGecko"
+  ],
+  "author": "Kiwasthal",
+  "license": "MIT",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "helmet": "^6.0.0"
+  }
+}
