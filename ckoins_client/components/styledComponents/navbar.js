@@ -36,10 +36,3 @@ export const Logo = styled.h1`
   color: #fff;
   font-weight: 800;
 `;
-
-const Hamburger = styled.img`
-  content: url('../assets/hamburger.svg');
-  @media (min-width: 768px) {
-    display: none;
-  }
-`;
