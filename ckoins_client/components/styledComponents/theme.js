@@ -1,4 +1,4 @@
 export const applicationTheme = {
-  main: '#0f172a',
+  main: '#111827;',
   text: '#faf5ff',
 };
