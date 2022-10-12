@@ -62,9 +62,8 @@ const SearchBar = ({ list, inView }) => {
         {active &&
           filteredList.length !== 0 &&
           filteredList.map(item => {
-            console.log(item);
             return (
-              <Link href={`/coins/${item.id}`}>
+              <Link href={`/coins/${item.id}`} key={item.id}>
                 <SearchItem>
                   <SearchSymbol>{item.name}</SearchSymbol>
                   <FaArrowRight color="#262626" />
