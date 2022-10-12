@@ -37,10 +37,10 @@ const Pagination = ({
       >
         <StyledPagination.PaginationArrowLeft />
       </StyledPagination.PaginationItem>
-      {paginationRange.map(pageNumber => {
+      {paginationRange.map((pageNumber, index) => {
         if (pageNumber === DOTS) {
           return (
-            <StyledPagination.PaginationItemDots className="dots">
+            <StyledPagination.PaginationItemDots key={index} className="dots">
               &#8230;
             </StyledPagination.PaginationItemDots>
           );

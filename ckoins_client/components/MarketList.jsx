@@ -1,8 +1,27 @@
-import { useEffect, useMemo, useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import MarketCard from './MarketCard';
 import Pagination from './Pagination';
 
+const StyledMarketSection = styled.section`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: ${props => props.theme.main};
+`;
+
+const StyledMarketCardContainer = styled.div`
+  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  row-gap: 15px;
+  gap: 20px;
+`;
+
 const MarketList = ({ paginationLength }) => {
-  const [currentPage, setCurrentPage] = useState(2);
+  const [currentPage, setCurrentPage] = useState(1);
   const [currentMarketData, setCurrentMarketData] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -21,25 +40,15 @@ const MarketList = ({ paginationLength }) => {
   console.log(currentMarketData);
 
   return (
-    <>
-      {!loading && (
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentMarketData.map(item => {
-              return (
-                <tr>
-                  <td>{item.id}</td>
-                </tr>
-              );
+    <StyledMarketSection>
+      <StyledMarketCardContainer>
+        <AnimatePresence mode="wait">
+          {!loading &&
+            currentMarketData.map((coin, index) => {
+              return <MarketCard key={coin.id} coin={coin} index={index} />;
             })}
-          </tbody>
-        </table>
-      )}
+        </AnimatePresence>
+      </StyledMarketCardContainer>
       <Pagination
         className="pagination-bar"
         currentPage={currentPage}
@@ -47,7 +56,7 @@ const MarketList = ({ paginationLength }) => {
         pageSize={20}
         onPageChange={page => setCurrentPage(page)}
       />
-    </>
+    </StyledMarketSection>
   );
 };
 

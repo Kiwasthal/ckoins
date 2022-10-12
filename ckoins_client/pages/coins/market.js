@@ -32,11 +32,6 @@ export default function Market({ coinsList, coinsData, topTrendingData }) {
       />
       <Hero inView={inView} />
       <TrendingSection data={topTrendingData} />
-      <DataContainer>
-        {coinsData.map(coin => {
-          return <CoinCard key={coin.id} coin={coin} />;
-        })}
-      </DataContainer>
       <MarketList paginationLength={coinsList.length} />
     </>
   );
