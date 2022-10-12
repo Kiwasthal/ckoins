@@ -99,8 +99,6 @@ const DefaultBtn = ({ btnHovered }) => {
 
 const ShowMoreBtn = ({ hasWrapper, cardHovered, path }) => {
   const [btnHovered, setBtnHovered] = useState(false);
-  console.log(btnHovered);
-
   const startHovering = () => setBtnHovered(true);
   const stopHovering = () => setBtnHovered(false);
 

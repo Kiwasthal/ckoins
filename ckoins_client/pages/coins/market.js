@@ -11,12 +11,17 @@ const DataContainer = styled.div`
   height: 100%;
 `;
 
-export default function Market({ coinsData, topTrendingData }) {
+export default function Market({ coinsList, coinsData, topTrendingData }) {
   const [ref, inView] = useInView();
 
   return (
     <>
-      <Navbar children={<SearchBar />} reference={ref} inView={inView} />
+      <Navbar
+        children={<SearchBar list={coinsList} inView={inView} />}
+        reference={ref}
+        inView={inView}
+        coinsList={coinsList}
+      />
       <Hero inView={inView} />
       <TrendingSection data={topTrendingData} />
       <DataContainer>
@@ -29,11 +34,12 @@ export default function Market({ coinsData, topTrendingData }) {
 }
 
 export async function getServerSideProps(context) {
+  const resList = await fetch(`https://api.coingecko.com/api/v3/coins/list`);
   const response = await fetch(
-    `https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=20&page=1&sparkline=false`
+    `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false`
   );
   const res = await fetch('https://api.coingecko.com/api/v3/search/trending');
-
+  const coinsList = await resList.json();
   const coinsData = await response.json();
   const topTrendingData = await res.json();
 
@@ -45,6 +51,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
+      coinsList,
       coinsData,
       topTrendingData: topTrendingData.coins.slice(0, 6),
     },

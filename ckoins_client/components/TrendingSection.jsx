@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Link from 'next/link';
 import { useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
