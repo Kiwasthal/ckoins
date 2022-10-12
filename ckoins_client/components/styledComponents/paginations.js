@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 const PaginationContainer = styled.div`
+  margin-top: 30px;
+  margin-bottom: 30px;
   display: flex;
   list-style-type: none;
 `;
@@ -10,19 +12,22 @@ const PaginationItem = styled.li`
   height: 32px;
   text-align: center;
   margin: auto 4px;
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(225, 29, 72, 0.87);
   display: flex;
   box-sizing: border-box;
   align-items: center;
   letter-spacing: 0.01071em;
   border-radius: 16px;
   line-height: 1.43;
-  font-size: 13px;
+  font-size: 24px;
   min-width: 32px;
+  background-color: ${props =>
+    props.selected ? ' rgba(225, 225, 225, 0.5)' : 'none'};
+  font-weight: ${props => (props.selected ? '700' : '400')};
 
   :hover {
     background-color: ${props =>
-      props.selected ? ' rgba(0, 0, 0, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
+      props.selected ? ' rgba(225, 225, 225, 0.5)' : 'rgba(225,225,225, 0.04)'};
     cursor: pointer;
   }
 `;
@@ -41,6 +46,7 @@ const PaginationArrow = styled.div`
     display: inline-block;
     width: 0.4em;
     height: 0.4em;
+    display: ${props => (props.disabled ? 'none' : 'inline-block')};
     pointer-events: ${props => (props.disabled ? 'none' : 'auto')};
     border-right: ${props =>
       props.disabled

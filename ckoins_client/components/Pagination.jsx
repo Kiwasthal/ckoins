@@ -20,10 +20,13 @@ const Pagination = ({
   }
 
   const onNext = () => {
+    console.log('TOTAL COUNT', totalCount / pageSize);
+    if (currentPage === totalCount) return;
     onPageChange(currentPage + 1);
   };
 
   const onPrevious = () => {
+    if (currentPage === 1) return;
     onPageChange(currentPage - 1);
   };
 

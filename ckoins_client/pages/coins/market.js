@@ -1,5 +1,3 @@
-import styled from 'styled-components';
-import CoinCard from '../../components/coincard';
 import Hero from '../../components/Hero';
 import Navbar from '../../components/Navbar';
 import SearchBar from '../../components/Searchbar';
@@ -8,12 +6,7 @@ import TrendingSection from '../../components/TrendingSection';
 import { useEffect } from 'react';
 import MarketList from '../../components/MarketList';
 
-const DataContainer = styled.div`
-  background-color: '#0f172a';
-  height: 100%;
-`;
-
-export default function Market({ coinsList, coinsData, topTrendingData }) {
+export default function Market({ coinsList, topTrendingData }) {
   const [ref, inView] = useInView();
 
   useEffect(() => {
@@ -37,7 +30,7 @@ export default function Market({ coinsList, coinsData, topTrendingData }) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
   const resList = await fetch(`https://api.coingecko.com/api/v3/coins/list`);
   const response = await fetch(
     `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false`
