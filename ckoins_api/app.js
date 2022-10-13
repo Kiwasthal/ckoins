@@ -6,10 +6,14 @@ const cors = require('cors');
 const apiRouter = require('./routes/api');
 
 const port = 3000;
-const devDomains = ['http://localhost:3000', 'http://localhost:8080'];
+const corsDomains = [
+  'http://localhost:3000',
+  'http://localhost:8080',
+  'https://cyperscope-assignment-2qlivhxoh-kiwasthal.vercel.app',
+];
 
 const corsOptions = {
-  origin: devDomains,
+  origin: corsDomains,
   optionSuccessStatus: 200,
 };
 
