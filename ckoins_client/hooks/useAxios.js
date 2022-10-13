@@ -6,7 +6,7 @@ export const useAxios = (param, dep = []) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  axios.defaults.baseURL = 'http://localhost:3000/api/';
+  axios.defaults.baseURL = 'https://geckoproxy.herokuapp.com/api/';
 
   const fetchData = async param => {
     try {
