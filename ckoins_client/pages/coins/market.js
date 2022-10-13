@@ -19,38 +19,26 @@ export default function Market({ topTrendingData }) {
   }, []);
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <ErrorComponent error={error} />;
   if (!response) return;
 
-  const { coinListData } = response;
+  const { coinList } = response;
 
   return (
     <>
-      <Navbar
-        children={<SearchBar list={coinListData} inView={inView} />}
-        reference={ref}
-        inView={inView}
-      />
-      <Hero inView={inView} />
-      <TrendingSection data={topTrendingData} />
-      <MarketList paginationLength={coinListData.length} />
+      {error ? (
+        <ErrorComponent error={error} />
+      ) : (
+        <>
+          <Navbar
+            children={<SearchBar list={coinList} inView={inView} />}
+            reference={ref}
+            inView={inView}
+          />
+          <Hero inView={inView} />
+          <TrendingSection data={topTrendingData} />
+          <MarketList paginationLength={coinList.length} />
+        </>
+      )}
     </>
   );
-}
-
-export async function getServerSideProps() {
-  const res = await fetch('https://api.coingecko.com/api/v3/search/trending');
-  const topTrendingData = await res.json();
-
-  if (!topTrendingData) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return {
-    props: {
-      topTrendingData: topTrendingData.coins.slice(0, 6),
-    },
-  };
 }

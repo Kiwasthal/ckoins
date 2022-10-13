@@ -3,6 +3,7 @@ import { useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import CoinCard from './CoinCard';
+import { useAxios } from '../hooks/useAxios';
 
 const TrendingSec = styled.section`
   width: 100%;
@@ -52,7 +53,9 @@ const TrendingContainer = styled.div`
   margin: 40px 0;
 `;
 
-const TrendingSection = ({ data }) => {
+const TrendingSection = () => {
+  const { response } = useAxios('trending');
+
   const [ref, inView] = useInView();
   const controls = useAnimation();
 
@@ -60,20 +63,16 @@ const TrendingSection = ({ data }) => {
     inView ? controls.start('animate') : controls.start('hidden');
   }, [inView, controls]);
 
+  if (!response) return;
+  const { trendingList } = response;
+
   return (
     <TrendingSec>
       <StyledHeader>TOP TRENDING</StyledHeader>
       <TrendingContainer ref={ref}>
-        {data.map((coin, i) => {
-          return (
-            <CoinCard
-              key={coin.item.id}
-              index={i}
-              coin={coin.item}
-              controls={controls}
-            />
-          );
-        })}
+        {trendingList.map((coin, i) => (
+          <CoinCard key={coin.id} index={i} coin={coin} controls={controls} />
+        ))}
       </TrendingContainer>
     </TrendingSec>
   );

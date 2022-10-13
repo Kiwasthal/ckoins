@@ -40,10 +40,13 @@ const Pagination = ({
       >
         <StyledPagination.PaginationArrowLeft />
       </StyledPagination.PaginationItem>
-      {paginationRange.map((pageNumber, index) => {
+      {paginationRange.map(pageNumber => {
         if (pageNumber === DOTS) {
           return (
-            <StyledPagination.PaginationItemDots key={index} className="dots">
+            <StyledPagination.PaginationItemDots
+              key={pageNumber}
+              className="dots"
+            >
               &#8230;
             </StyledPagination.PaginationItemDots>
           );
@@ -51,6 +54,7 @@ const Pagination = ({
 
         return (
           <StyledPagination.PaginationItem
+            key={pageNumber}
             selected={pageNumber === currentPage}
             onClick={() => onPageChange(pageNumber)}
           >

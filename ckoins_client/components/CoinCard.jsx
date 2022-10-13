@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import StyledCoinCard from './styledComponents/coincard';
 import ShowMoreBtn from './ShowMoreBtn';
 
@@ -21,28 +21,12 @@ const coinVariants = {
 };
 
 const CoinCard = ({ coin, index, controls }) => {
-  const [validCoin, setValidCoin] = useState({});
-  const [fetching, setFetching] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
 
   const startHover = () => setIsHovered(true);
   const stopHover = () => setIsHovered(false);
 
-  useEffect(() => {
-    const normalizeCoin = async () => {
-      const res = await fetch(
-        `https://api.coingecko.com/api/v3/coins/${coin.id}`
-      );
-      const coinData = await res.json();
-      setValidCoin(coinData);
-      setFetching(false);
-    };
-    normalizeCoin();
-  }, []);
-
-  return fetching ? (
-    <div></div>
-  ) : (
+  return (
     <StyledCoinCard.Card
       variants={coinVariants}
       initial="hidden"
@@ -54,24 +38,20 @@ const CoinCard = ({ coin, index, controls }) => {
       <StyledCoinCard.Content cardHovered={isHovered}>
         <StyledCoinCard.CoinImageBox>
           <StyledCoinCard.CoinImage
-            src={validCoin.image.large}
-            alt={`rounded icon for ${validCoin.name}`}
+            src={coin.image}
+            alt={`rounded icon for ${coin.name}`}
           />
         </StyledCoinCard.CoinImageBox>
         <StyledCoinCard.ContentBox>
           <StyledCoinCard.CoinName>
-            {validCoin.name} <br></br>
+            {coin.name} <br></br>
             <StyledCoinCard.CoinPrice>
-              {validCoin.market_data.ath.usd} $
+              BTC_PRICE : {coin.price_btc}
             </StyledCoinCard.CoinPrice>
           </StyledCoinCard.CoinName>
         </StyledCoinCard.ContentBox>
       </StyledCoinCard.Content>
-      <ShowMoreBtn
-        cardHovered={isHovered}
-        hasWrapper={true}
-        path={validCoin.id}
-      />
+      <ShowMoreBtn cardHovered={isHovered} hasWrapper={true} path={coin.id} />
     </StyledCoinCard.Card>
   );
 };

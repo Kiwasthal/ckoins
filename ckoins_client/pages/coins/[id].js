@@ -5,18 +5,24 @@ import CoinDescriptionBox from '../../components/CoinDescription';
 import { useRouter } from 'next/router';
 import { useInView } from 'react-intersection-observer';
 import { useState } from 'react';
+import { useAxios } from '../../hooks/useAxios';
 
-export default function Coin({ coinsList }) {
+export default function Coin() {
+  const { response, loading, error } = useAxios('coinlist');
   const [timespan, setTimespan] = useState(7);
   const [coinDescription, setCoinDescription] = useState('');
   const { ref, inView } = useInView();
   const router = useRouter();
   const { id } = router.query;
+
+  if (!response) return;
+  const { coinList } = response;
+
   return (
     <div>
       <Navbar
-        children={<SearchBar list={coinsList} inView={true} />}
-        coinsList={coinsList}
+        children={<SearchBar list={coinList} inView={true} />}
+        coinsList={coinList}
         reference={ref}
         inView={inView}
       />
@@ -31,16 +37,4 @@ export default function Coin({ coinsList }) {
       />
     </div>
   );
-}
-
-export async function getServerSideProps() {
-  const resList = await fetch(`https://api.coingecko.com/api/v3/coins/list`);
-
-  const coinsList = await resList.json();
-
-  return {
-    props: {
-      coinsList,
-    },
-  };
 }

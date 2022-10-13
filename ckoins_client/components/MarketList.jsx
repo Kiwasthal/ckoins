@@ -1,6 +1,7 @@
 import { AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useAxios } from '../hooks/useAxios';
 import MarketCard from './MarketCard';
 import Pagination from './Pagination';
 import StyledSelectPage from './styledComponents/selectPageSize';
@@ -31,21 +32,12 @@ const StyledMarketTitle = styled.h1`
 const MarketList = ({ paginationLength }) => {
   const [pageSize, setPageSize] = useState(20);
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentMarketData, setCurrentMarketData] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchMarketPageData = async () => {
-      setLoading(true);
-      const res = await fetch(
-        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${pageSize}&page=${currentPage}&sparkline=false`
-      );
-      const marketData = await res.json();
-      setCurrentMarketData(marketData);
-    };
-    fetchMarketPageData();
-    return setLoading(false);
-  }, [currentPage, pageSize]);
+  const { response, loading } = useAxios(
+    `pagination/${pageSize}/${currentPage}`,
+    [pageSize, currentPage]
+  );
+  if (!response) return;
+  const { paginationList } = response;
 
   return (
     <StyledMarketSection>
@@ -53,11 +45,9 @@ const MarketList = ({ paginationLength }) => {
       <StyledSelectPage modifyPageSize={setPageSize} />
       <StyledMarketCardContainer>
         <AnimatePresence mode="wait">
-          {!loading &&
-            currentMarketData.map((coin, index) => {
-              return <MarketCard key={coin.id} coin={coin} index={index} />;
-            })}
-          {loading}
+          {paginationList.map((coin, index) => {
+            return <MarketCard key={coin.id} coin={coin} index={index} />;
+          })}
         </AnimatePresence>
       </StyledMarketCardContainer>
       <Pagination

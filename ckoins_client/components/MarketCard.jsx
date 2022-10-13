@@ -61,7 +61,7 @@ const MarketCard = ({ coin, index }) => {
           <StyledMarketCard.CoinPrice>
             Price
             <StyledMarketCard.CoinPriceValue>
-              {coin.current_price} $
+              {coin.cur_price} $
             </StyledMarketCard.CoinPriceValue>
           </StyledMarketCard.CoinPrice>
         </StyledMarketCard.PriceBox>
@@ -69,7 +69,7 @@ const MarketCard = ({ coin, index }) => {
           <StyledMarketCard.CoinPrice>
             Highest
             <StyledMarketCard.CoinPriceValue>
-              {coin.high_24h} $
+              {coin.high_24} $
             </StyledMarketCard.CoinPriceValue>
           </StyledMarketCard.CoinPrice>
         </StyledMarketCard.HighPriceContainer>
@@ -77,7 +77,7 @@ const MarketCard = ({ coin, index }) => {
           <StyledMarketCard.CoinPrice>
             Lowest
             <StyledMarketCard.CoinPriceValue>
-              {coin.low_24h} $
+              {coin.low_24} $
             </StyledMarketCard.CoinPriceValue>
           </StyledMarketCard.CoinPrice>
         </StyledMarketCard.LowPriceContainer>
@@ -85,7 +85,7 @@ const MarketCard = ({ coin, index }) => {
           <StyledMarketCard.CoinPrice>
             24_H_Change
             <StyledMarketCard.CoinPriceValue>
-              {coin.market_cap_change_percentage_24h} $
+              {coin.market_cap_24h} $
             </StyledMarketCard.CoinPriceValue>
           </StyledMarketCard.CoinPrice>
         </StyledMarketCard.DailyPriceChangeContainer>

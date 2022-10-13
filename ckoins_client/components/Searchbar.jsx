@@ -22,7 +22,7 @@ const useInput = (initialValue, list, setFiltered) => {
     setValue(target.value);
     if (!target.value) return setFiltered([]);
     const filteredValue = list.filter(item =>
-      item.name.toLowerCase().startsWith(target.value)
+      item.name.toLowerCase().startsWith(target.value.toLowerCase())
     );
     setFiltered(filteredValue.slice(0, 5));
   };

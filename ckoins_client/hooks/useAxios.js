@@ -17,7 +17,6 @@ export const useAxios = (param, dep = []) => {
       setResponse(result.data);
     } catch (err) {
       setError(err);
-      console.log(err);
     } finally {
       setLoading(false);
     }

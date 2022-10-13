@@ -37,73 +37,70 @@ const ResSpan = styled.span`
 `;
 
 const CoinDetailed = ({ coinid, setDesc }) => {
-  const { response } = useAxios(
-    `coins/${coinid}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`
-  );
+  const { response } = useAxios(`coin/${coinid}`);
 
   useEffect(() => {
     if (!response) return;
-    setDesc(response.description.en);
-    console.log(response);
+    setDesc(response.detailedCoin.description);
   });
 
   if (!response) return;
-
-  const {
-    current_price,
-    high_24h,
-    low_24h,
-    price_change_24h_in_currency,
-    price_change_percentage_7d_in_currency,
-    price_change_percentage_14d_in_currency,
-    price_change_percentage_30d_in_currency,
-    price_change_percentage_60d_in_currency,
-    price_change_percentage_200d_in_currency,
-    price_change_percentage_1y_in_currency,
-  } = response.market_data;
+  const { detailedCoin } = response;
 
   return (
     <>
       {response ? (
         <StyledDetailedCoinCointainer>
-          <StyledCoinImg src={response.image.large} alt="" />
-          <StyledTitle>{response.name}</StyledTitle>
+          <StyledCoinImg src={detailedCoin.image} alt="" />
+          <StyledTitle>{detailedCoin.name}</StyledTitle>
           <StyledPriceTxtx>
-            Current Price : <ResSpan> {current_price.usd}$</ResSpan>
+            Current Price : <ResSpan> {detailedCoin.current_price}$</ResSpan>
           </StyledPriceTxtx>
           <StyledPriceTxtx>
-            Highest Price(24h) : <ResSpan>{high_24h.usd}$</ResSpan>
+            Highest Price(24h) : <ResSpan>{detailedCoin.high_24h}$</ResSpan>
           </StyledPriceTxtx>
           <StyledPriceTxtx>
-            Lowest Price(24h) : <ResSpan> {low_24h.usd}$</ResSpan>
+            Lowest Price(24h) : <ResSpan> {detailedCoin.low_24h}$</ResSpan>
           </StyledPriceTxtx>
           <StyledPriceTxtx>
             Price Change(24h) :
-            <ResSpan> {price_change_24h_in_currency.usd}$</ResSpan>
+            <ResSpan> {detailedCoin.price_change_24h_in_currency}$</ResSpan>
           </StyledPriceTxtx>
           <StyledPriceTxtx>
             Price Change (7d) :
-            <ResSpan>{price_change_percentage_7d_in_currency.usd}$</ResSpan>
+            <ResSpan>
+              {detailedCoin.price_change_percentage_7d_in_currency}$
+            </ResSpan>
           </StyledPriceTxtx>
           <StyledPriceTxtx>
             Price Change(14d) :
-            <ResSpan>{price_change_percentage_14d_in_currency.usd}$</ResSpan>
+            <ResSpan>
+              {detailedCoin.price_change_percentage_14d_in_currency}$
+            </ResSpan>
           </StyledPriceTxtx>
           <StyledPriceTxtx>
             Price Change (30d) :
-            <ResSpan>{price_change_percentage_30d_in_currency.usd}$</ResSpan>
+            <ResSpan>
+              {detailedCoin.price_change_percentage_30d_in_currency}$
+            </ResSpan>
           </StyledPriceTxtx>
           <StyledPriceTxtx>
             Price Change (60d) :
-            <ResSpan>{price_change_percentage_60d_in_currency.usd}$</ResSpan>
+            <ResSpan>
+              {detailedCoin.price_change_percentage_60d_in_currency}$
+            </ResSpan>
           </StyledPriceTxtx>
           <StyledPriceTxtx>
             Price Change (200d) :
-            <ResSpan>{price_change_percentage_200d_in_currency.usd}$</ResSpan>
+            <ResSpan>
+              {detailedCoin.price_change_percentage_200d_in_currency}$
+            </ResSpan>
           </StyledPriceTxtx>
           <StyledPriceTxtx>
             Price Change (365d) :
-            <ResSpan>{price_change_percentage_1y_in_currency.usd}$</ResSpan>
+            <ResSpan>
+              {detailedCoin.price_change_percentage_1y_in_currency}$
+            </ResSpan>
           </StyledPriceTxtx>
         </StyledDetailedCoinCointainer>
       ) : null}

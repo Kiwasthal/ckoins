@@ -47,10 +47,7 @@ const ChartDiv = styled.div`
 `;
 
 function HistoryChart({ coinid, timespan, setDesc }) {
-  const { response } = useAxios(
-    `coins/${coinid}/market_chart?vs_currency=usd&days=${timespan}`,
-    [timespan]
-  );
+  const { response } = useAxios(`chart/${coinid}/${timespan}`, [timespan]);
 
   if (!response) return <div>Loading...</div>;
 
