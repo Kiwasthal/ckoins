@@ -46,7 +46,6 @@ const MarketList = ({ paginationLength }) => {
     fetchMarketPageData();
     return setLoading(false);
   }, [currentPage, pageSize]);
-  console.log(currentMarketData);
 
   return (
     <StyledMarketSection>

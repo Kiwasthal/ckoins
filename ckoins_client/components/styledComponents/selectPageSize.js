@@ -58,10 +58,9 @@ const StyledSelectPage = ({ modifyPageSize }) => {
         onChange={e => {
           modifyPageSize(e.target.value);
         }}
+        defaultValue={'Choose Page Size'}
       >
-        <StyledSelectOption selected disabled>
-          Choose Page Size
-        </StyledSelectOption>
+        <StyledSelectOption disabled>Choose Page Size</StyledSelectOption>
         <StyledSelectOption value={20}>20</StyledSelectOption>
         <StyledSelectOption value={40}>40</StyledSelectOption>
         <StyledSelectOption value={60}>60</StyledSelectOption>

@@ -32,6 +32,7 @@ export const Bar = styled.nav`
 `;
 
 export const Logo = styled.h1`
+  cursor: pointer;
   font-size: 2rem;
   color: #fff;
   font-weight: 800;

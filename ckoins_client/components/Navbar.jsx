@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { NavContainer, Bar, Logo } from './styledComponents/navbar';
 
 const Navbar = ({ children, reference, inView }) => {
@@ -15,7 +16,9 @@ const Navbar = ({ children, reference, inView }) => {
       ></span>
       <NavContainer>
         <Bar inView={inView}>
-          <Logo>CKOINS</Logo>
+          <Link href={'/coins/market'}>
+            <Logo>CKOINS</Logo>
+          </Link>
           {children}
         </Bar>
       </NavContainer>
