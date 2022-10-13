@@ -1,6 +1,6 @@
 import { useAxios } from '../hooks/useAxios';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -29,6 +29,7 @@ ChartJS.register(
 
 const StyledChartContainer = styled.div`
   padding-top: 18vh;
+
   background-color: ${props => props.theme.main};
   width: 100%;
   display: flex;
@@ -37,11 +38,12 @@ const StyledChartContainer = styled.div`
 
 const StyledChartSection = styled.div`
   display: flex;
+  min-height: 57vh;
   width: 80%;
 `;
 
 const ChartDiv = styled.div`
-  width: 80%;
+  width: 70%;
 `;
 
 function HistoryChart({ coinid, timespan, setDesc }) {
