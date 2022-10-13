@@ -5,8 +5,11 @@ import { useInView } from 'react-intersection-observer';
 import TrendingSection from '../../components/TrendingSection';
 import { useEffect } from 'react';
 import MarketList from '../../components/MarketList';
+import { useAxios } from '../../hooks/useAxios';
+import ErrorComponent from '../../components/ErrorPage';
 
-export default function Market({ coinsList, topTrendingData }) {
+export default function Market({ topTrendingData }) {
+  const { response, loading, error } = useAxios('coinlist');
   const [ref, inView] = useInView();
 
   useEffect(() => {
@@ -15,32 +18,31 @@ export default function Market({ coinsList, topTrendingData }) {
     );
   }, []);
 
+  if (loading) return <div>Loading...</div>;
+  if (error) return <ErrorComponent error={error} />;
+  if (!response) return;
+
+  const { coinListData } = response;
+
   return (
     <>
       <Navbar
-        children={<SearchBar list={coinsList} inView={inView} />}
+        children={<SearchBar list={coinListData} inView={inView} />}
         reference={ref}
         inView={inView}
-        coinsList={coinsList}
       />
       <Hero inView={inView} />
       <TrendingSection data={topTrendingData} />
-      <MarketList paginationLength={coinsList.length} />
+      <MarketList paginationLength={coinListData.length} />
     </>
   );
 }
 
 export async function getServerSideProps() {
-  const resList = await fetch(`https://api.coingecko.com/api/v3/coins/list`);
-  const response = await fetch(
-    `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false`
-  );
   const res = await fetch('https://api.coingecko.com/api/v3/search/trending');
-  const coinsList = await resList.json();
-  const coinsData = await response.json();
   const topTrendingData = await res.json();
 
-  if (!coinsData && !topTrendingData) {
+  if (!topTrendingData) {
     return {
       notFound: true,
     };
@@ -48,8 +50,6 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      coinsList,
-      coinsData,
       topTrendingData: topTrendingData.coins.slice(0, 6),
     },
   };

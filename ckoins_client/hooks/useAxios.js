@@ -6,15 +6,18 @@ export const useAxios = (param, dep = []) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  axios.defaults.baseURL = 'https://api.coingecko.com/api/v3/';
+  axios.defaults.baseURL = 'http://localhost:3000/api/';
 
   const fetchData = async param => {
     try {
       setLoading(true);
+      console.log(param);
       const result = await axios(param);
+
       setResponse(result.data);
     } catch (err) {
       setError(err);
+      console.log(err);
     } finally {
       setLoading(false);
     }
